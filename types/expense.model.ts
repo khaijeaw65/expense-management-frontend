@@ -8,3 +8,18 @@ export interface Expense {
   detail: string,
   date: string,
 };
+
+export interface MonthlySummary {
+  date: string,
+  income: number,
+  expense: number,
+}
+
+export interface YearlySummary {
+  year: string;
+  summary: {
+    month: string,
+    income: number,
+    expense: number,
+  }[]
+}

@@ -26,12 +26,19 @@ const token = localStorage.getItem('token');
 const refreshProfile = async () => {
   try {
     if (token) {
-      const { data: response } = await useLazyFetch<{ result: { user: User, token: string } }>('http://localhost:8000/auth/profile', {
+      const { data: response, error } = await useLazyFetch<{ result: { user: User, token: string } }>('http://localhost:8000/auth/profile', {
         method: 'get',
         headers: {
           Authorization: `Bearer ${token}`
         }
       });
+
+      if (error.value) {
+        if (error.value.data.cause === 'token expired') {
+        }
+        useRouter().replace('/login');
+        return;
+      }
       watch(response, (newData) => {
         localStorage.setItem('token', newData?.result.token!)
         useUser().value = newData?.result.user!;

@@ -79,7 +79,7 @@ const tableHeaders = [
 ];
 
 const fetchData = async () => {
-  const { data: response } = await useFetch<{ result: Expense[] }>('http://localhost:8000/expenses/getUserExpense', {
+  const { data: response } = await useFetch<{ result: Expense[] }>('http://localhost:8000/expenses/getUserIncome', {
     headers: {
       Authorization: `Bearer ${localStorage.getItem('token')}`
     },
@@ -128,8 +128,7 @@ const detail = defineComponentBinds('detail', vuetifyConfig);
 const amount = defineComponentBinds('amount', vuetifyConfig);
 
 const onSubmit = handleSubmit(async (values) => {
-  console.log('eiei')
-  const { data, error } = await useFetch('http://localhost:8000/expenses/addExpense', {
+  const { data, error } = await useFetch('http://localhost:8000/expenses/addIncome', {
     method: 'post',
     body: {
       detail: values.detail,
